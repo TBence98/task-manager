@@ -37,7 +37,6 @@ const TaskList = () => {
                     <Text style={{ fontWeight: "bold", fontSize: 30 }}>
                         Apr, 2023
                     </Text>
-                    {/* <Button title="Add Task" onPress={addTaskHandler} /> */}
                     <PrimaryButton
                         onPress={addTaskHandler}
                         innerContainerStyle={{

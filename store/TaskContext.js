@@ -5,6 +5,8 @@ export const TaskContext = React.createContext({
     priorityTasks: [],
     dailyTasks: [],
     addTask: (category, task) => {},
+    loading: true,
+    error: false,
 });
 
 const GET_TASKS = gql`
@@ -86,6 +88,8 @@ const TaskProvider = ({ children }) => {
         priorityTasks: projects,
         dailyTasks: tasks,
         addTask,
+        loading: projectsLoading || tasksLoading,
+        error: projectsError || tasksError,
     };
 
     return (
