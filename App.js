@@ -1,20 +1,112 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import TaskProvider from "./store/TaskContext";
+import Home from "./screens/Home/Home";
+import Personal from "./screens/Personal/Personal";
+import TaskList from "./screens/TaskList/TaskList";
+import AddTask from "./screens/AddTask/AddTask";
+import Header from "./components/Header/Header";
+
+const Stack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator();
+
+const httpLink = createHttpLink({
+    uri: "https://graphql.contentful.com/content/v1/spaces/uqc7pcypi89w",
+});
+
+const authLink = setContext((_, { headers }) => {
+    return {
+        headers: {
+            ...headers,
+            authorization: "Bearer yhXbILxafWv4IJnL5B9IQ9DVqHTVJzIfxTzNS3n4kls",
+        },
+    };
+});
+
+const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+});
+
+function TabNavigator() {
+    return (
+        <BottomTab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarInactiveTintColor: "#c3cfe6",
+            }}
+        >
+            <BottomTab.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="home" color={color} size={30} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="TaskList"
+                component={TaskList}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="calendar" color={color} size={30} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="Personal"
+                component={Personal}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="person" color={color} size={30} />
+                    ),
+                }}
+            />
+        </BottomTab.Navigator>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+    return (
+        <ApolloProvider client={client}>
+            <TaskProvider>
+                <NavigationContainer>
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        <Stack.Screen
+                            name="TabNavigator"
+                            component={TabNavigator}
+                        />
+                        <Stack.Screen
+                            name="AddTask"
+                            component={AddTask}
+                            options={{
+                                headerShown: true,
+                                header: () => (
+                                    <Header
+                                        navigationTarget="TaskList"
+                                        title="Add Task"
+                                    />
+                                ),
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </TaskProvider>
+        </ApolloProvider>
+    );
+}
+
+const styles = StyleSheet.create({});
