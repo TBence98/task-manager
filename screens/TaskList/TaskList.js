@@ -15,13 +15,13 @@ const TaskList = () => {
 
     let daysOfMonth = getDaysOfMonth(
         selectedDate.getFullYear(),
-        selectedDate.getDate()
+        selectedDate.getMonth()
     );
 
     useEffect(() => {
         daysOfMonth = getDaysOfMonth(
             selectedDate.getFullYear(),
-            selectedDate.getDate()
+            selectedDate.getMonth()
         );
     }, [selectedDate]);
 
