@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import Colors from "../../constants/Colors";
 
 import Input from "../Input/Input";
 import PrimaryReactiveButton from "../UI/PrimaryReactiveButton/PrimaryReactiveButton";
 import PrimaryButton from "../UI/PrimaryButton/PrimaryButton";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import formatDate from "../../utils/formatDate";
 
 const AddTaskForm = ({ onSubmit, defaultValues }) => {
     const [category, setCategory] = useState(
@@ -17,14 +19,14 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
             value:
                 defaultValues && defaultValues.startDate
                     ? defaultValues.startDate
-                    : "",
+                    : new Date(),
             isValid: true,
         },
         endDate: {
             value:
                 defaultValues && defaultValues.endDate
                     ? defaultValues.endDate
-                    : "",
+                    : new Date(),
             isValid: true,
         },
         title: {
@@ -41,6 +43,8 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
         },
     });
 
+    const [activeCalendar, setActiveCalendar] = useState("");
+
     function inputChangedHandler(inputIdentifier, enteredValue) {
         setInputs((curInputs) => {
             return {
@@ -48,6 +52,13 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                 [inputIdentifier]: { value: enteredValue, isValid: true },
             };
         });
+    }
+
+    function dateChangeHandler(inputIdentifier, { type }, selectedDate) {
+        if (type === "set") {
+            setActiveCalendar("");
+            inputChangedHandler(inputIdentifier, selectedDate);
+        }
     }
 
     function categoryChangedHandler(category) {
@@ -69,32 +80,52 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
 
     return (
         <View style={{ marginTop: 50 }}>
+            {activeCalendar ? (
+                <DateTimePicker
+                    mode="date"
+                    display="default"
+                    value={new Date(inputs[activeCalendar].value)}
+                    onChange={dateChangeHandler.bind(null, activeCalendar)}
+                />
+            ) : null}
+
             <View style={styles.inputRow}>
-                <Input
+                <Pressable
+                    onPress={() => setActiveCalendar("startDate")}
                     style={styles.rowInput}
-                    label="Start"
-                    invalid={!inputs.startDate.isValid}
-                    textInputConfig={{
-                        keyboardType: "decimal-pad",
-                        onChangeText: inputChangedHandler.bind(
-                            null,
-                            "startDate"
-                        ),
-                        placeholder: "YYYY-MM-DD",
-                        value: inputs.startDate.value,
-                    }}
-                />
-                <Input
+                >
+                    <Input
+                        label="Start"
+                        invalid={!inputs.startDate.isValid}
+                        textInputConfig={{
+                            keyboardType: "decimal-pad",
+                            onChangeText: inputChangedHandler.bind(
+                                null,
+                                "startDate"
+                            ),
+                            placeholder: formatDate(inputs.startDate.value),
+                            editable: false,
+                        }}
+                    />
+                </Pressable>
+                <Pressable
+                    onPress={() => setActiveCalendar("endDate")}
                     style={styles.rowInput}
-                    label="End"
-                    invalid={!inputs.endDate.isValid}
-                    textInputConfig={{
-                        keyboardType: "decimal-pad",
-                        onChangeText: inputChangedHandler.bind(null, "endDate"),
-                        placeholder: "YYYY-MM-DD",
-                        value: inputs.endDate.value,
-                    }}
-                />
+                >
+                    <Input
+                        label="End"
+                        invalid={!inputs.endDate.isValid}
+                        textInputConfig={{
+                            keyboardType: "decimal-pad",
+                            onChangeText: inputChangedHandler.bind(
+                                null,
+                                "endDate"
+                            ),
+                            placeholder: formatDate(inputs.endDate.value),
+                            editable: false,
+                        }}
+                    />
+                </Pressable>
             </View>
             <Input
                 label="Title"
