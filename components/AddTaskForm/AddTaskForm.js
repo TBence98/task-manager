@@ -98,11 +98,6 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                         label="Start"
                         invalid={!inputs.startDate.isValid}
                         textInputConfig={{
-                            keyboardType: "decimal-pad",
-                            onChangeText: inputChangedHandler.bind(
-                                null,
-                                "startDate"
-                            ),
                             placeholder: formatDate(inputs.startDate.value),
                             editable: false,
                         }}
@@ -116,11 +111,6 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                         label="End"
                         invalid={!inputs.endDate.isValid}
                         textInputConfig={{
-                            keyboardType: "decimal-pad",
-                            onChangeText: inputChangedHandler.bind(
-                                null,
-                                "endDate"
-                            ),
                             placeholder: formatDate(inputs.endDate.value),
                             editable: false,
                         }}
