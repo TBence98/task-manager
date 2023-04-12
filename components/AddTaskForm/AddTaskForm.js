@@ -58,6 +58,8 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
         if (type === "set") {
             setActiveCalendar("");
             inputChangedHandler(inputIdentifier, selectedDate);
+        } else {
+            setActiveCalendar("");
         }
     }
 
