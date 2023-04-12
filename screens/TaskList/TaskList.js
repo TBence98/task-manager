@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/Colors";
@@ -8,15 +8,23 @@ import ListOfTask from "../../components/ListOfTasks/ListOfTask";
 import PrimaryButton from "../../components/UI/PrimaryButton/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const TaskList = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [showCalendar, setShowCalendar] = useState(false);
+
     const navigation = useNavigation();
 
     let daysOfMonth = getDaysOfMonth(
         selectedDate.getFullYear(),
         selectedDate.getMonth()
     );
+
+    const selectedMonth = selectedDate.toLocaleString("en-US", {
+        month: "short",
+    });
+    const selectedYear = selectedDate.getFullYear();
 
     useEffect(() => {
         daysOfMonth = getDaysOfMonth(
@@ -25,6 +33,15 @@ const TaskList = () => {
         );
     }, [selectedDate]);
 
+    function dateChangeHandler({ type }, selectedDate) {
+        if (type === "set") {
+            setShowCalendar(false);
+            setSelectedDate(new Date(selectedDate));
+        } else {
+            setShowCalendar(false);
+        }
+    }
+
     function addTaskHandler() {
         navigation.navigate("AddTask");
     }
@@ -32,11 +49,21 @@ const TaskList = () => {
     return (
         <>
             <StatusBar style="black" />
+            {showCalendar ? (
+                <DateTimePicker
+                    mode="date"
+                    display="default"
+                    value={selectedDate}
+                    onChange={dateChangeHandler}
+                />
+            ) : null}
             <View style={styles.screen}>
                 <View style={styles.header}>
-                    <Text style={{ fontWeight: "bold", fontSize: 30 }}>
-                        Apr, 2023
-                    </Text>
+                    <Pressable onPress={() => setShowCalendar(true)}>
+                        <Text style={{ fontWeight: "bold", fontSize: 30 }}>
+                            {selectedMonth}, {selectedYear}
+                        </Text>
+                    </Pressable>
                     <PrimaryButton
                         onPress={addTaskHandler}
                         innerContainerStyle={{
