@@ -58,9 +58,9 @@ const TaskList = () => {
                 />
             ) : null}
             <View style={styles.screen}>
-                <View style={styles.header}>
+                <View className="mt-16 flex-row justify-between items-center">
                     <Pressable onPress={() => setShowCalendar(true)}>
-                        <Text style={{ fontWeight: "bold", fontSize: 30 }}>
+                        <Text className="text-3xl font-bold">
                             {selectedMonth}, {selectedYear}
                         </Text>
                     </Pressable>
