@@ -15,7 +15,6 @@ import Home from "./screens/Home/Home";
 import Personal from "./screens/Personal/Personal";
 import TaskList from "./screens/TaskList/TaskList";
 import AddTask from "./screens/AddTask/AddTask";
-import Header from "./components/Header/Header";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -88,19 +87,7 @@ export default function App() {
                             name="TabNavigator"
                             component={TabNavigator}
                         />
-                        <Stack.Screen
-                            name="AddTask"
-                            component={AddTask}
-                            options={{
-                                headerShown: true,
-                                header: () => (
-                                    <Header
-                                        navigationTarget="TaskList"
-                                        title="Add Task"
-                                    />
-                                ),
-                            }}
-                        />
+                        <Stack.Screen name="AddTask" component={AddTask} />
                     </Stack.Navigator>
                 </NavigationContainer>
             </TaskProvider>

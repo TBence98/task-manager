@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ScrollView } from "react-native";
 
 import Input from "../Input/Input";
 import PrimaryReactiveButton from "../UI/PrimaryReactiveButton/PrimaryReactiveButton";
@@ -80,7 +80,7 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
     }
 
     return (
-        <View className="mt-12">
+        <ScrollView className="mt-12">
             {activeCalendar ? (
                 <DateTimePicker
                     mode="date"
@@ -159,7 +159,7 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
             <PrimaryButton style="mt-6" onPress={submitHandler}>
                 Create Task
             </PrimaryButton>
-        </View>
+        </ScrollView>
     );
 };
 
