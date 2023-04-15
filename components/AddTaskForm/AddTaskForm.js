@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
 import Input from "../Input/Input";
 import PrimaryReactiveButton from "../UI/PrimaryReactiveButton/PrimaryReactiveButton";
@@ -80,7 +80,7 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
     }
 
     return (
-        <ScrollView className="mt-12">
+        <View className="mt-12 relative flex-1">
             {activeCalendar ? (
                 <DateTimePicker
                     mode="date"
@@ -89,7 +89,6 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                     onChange={dateChangeHandler.bind(null, activeCalendar)}
                 />
             ) : null}
-
             <View className="flex-row justify-between">
                 <Pressable
                     onPress={() => setActiveCalendar("startDate")}
@@ -127,7 +126,7 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                 }}
             />
             <View className="my-2 mx-1">
-                <Text className="text-sm font-bold text-blue-800 mb-1">
+                <Text className="text-sm font-bold text-blue-600 mb-1">
                     Category
                 </Text>
                 <View className="flex-row justify-between">
@@ -156,10 +155,13 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                     value: inputs.description.value,
                 }}
             />
-            <PrimaryButton style="mt-6" onPress={submitHandler}>
+            <PrimaryButton
+                style="absolute bottom-3 left-0 right-0"
+                onPress={submitHandler}
+            >
                 Create Task
             </PrimaryButton>
-        </ScrollView>
+        </View>
     );
 };
 

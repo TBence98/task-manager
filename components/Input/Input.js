@@ -1,4 +1,4 @@
-import { Text, TextInput, View, KeyboardAvoidingView } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 function Input({ label, invalid, style, textInputConfig }) {
     let inputStyles = "bg-white p-1.5 rounded text-sm";
