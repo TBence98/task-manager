@@ -1,54 +1,18 @@
-import { View, Text, StyleSheet } from "react-native";
-import Colors from "../../constants/Colors";
+import { View, Text } from "react-native";
 
 const TaskListItem = ({ isActive, name }) => {
     return (
-        <View style={styles.card}>
-            <Text
-                style={[styles.cardTitle, isActive && styles.activeCardTitle]}
-            >
+        <View className="p-2.5 my-1 bg-white rounded border-slate-200 border-2 flex-row items-center justify-between">
+            <Text className={`font-bold ${isActive ? "text-blue-600" : ""}`}>
                 {name}
             </Text>
-            <View style={styles.circle}>
-                {isActive ? <View style={styles.filledCircle}></View> : null}
+            <View className="w-[20px] h-[20px] rounded-[10px] border-blue-600 border-2 items-center justify-center">
+                {isActive ? (
+                    <View className="w-[14px] h-[14px] rounded-[7px] bg-blue-600"></View>
+                ) : null}
             </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    card: {
-        padding: 10,
-        marginVertical: 3,
-        backgroundColor: Colors.primary900,
-        borderRadius: 5,
-        borderColor: "#dae4e6",
-        borderWidth: 1,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-    },
-    cardTitle: {
-        fontWeight: "bold",
-    },
-    activeCardTitle: {
-        color: Colors.secondary500,
-    },
-    circle: {
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        borderColor: Colors.secondary400,
-        borderWidth: 2,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    filledCircle: {
-        width: 14,
-        height: 14,
-        borderRadius: 7,
-        backgroundColor: Colors.secondary400,
-    },
-});
 
 export default TaskListItem;

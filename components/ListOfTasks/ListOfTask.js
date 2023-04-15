@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { TaskContext } from "../../store/TaskContext";
-import { Button, View, ScrollView, StyleSheet, Text } from "react-native";
+import { View, ScrollView } from "react-native";
 import TaskListItem from "./TaskListItem";
 import SecondaryReactiveButton from "../UI/SecondaryReactiveButton/SecondaryReactiveButton";
 import LoadingOverlay from "../UI/LoadingOverlay/LoadingOverlay";
@@ -22,7 +22,7 @@ const ListOfTask = () => {
                 <ErrorOverlay message="Could not fetch tasks" />
             ) : (
                 <>
-                    <View style={styles.buttonsContainer}>
+                    <View className="flex-row items-center justify-around">
                         <SecondaryReactiveButton
                             onPress={categorySelectHandler.bind(
                                 null,
@@ -66,13 +66,5 @@ const ListOfTask = () => {
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    buttonsContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
-    },
-});
 
 export default ListOfTask;

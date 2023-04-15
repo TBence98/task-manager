@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import HeaderBackButton from "../UI/HeaderBackButton/HeaderBackButton";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../../constants/Colors";
 
 const Header = ({ navigationTarget, title }) => {
     const navigation = useNavigation();
@@ -11,40 +10,13 @@ const Header = ({ navigationTarget, title }) => {
     }
 
     return (
-        <View style={styles.headerContainer}>
-            <View
-                style={{
-                    position: "relative",
-                    width: "100%",
-                    alignItems: "center",
-                }}
-            >
-                <View
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 14,
-                        zIndex: 10,
-                        elevation: 10,
-                    }}
-                >
+        <View className="flex-row items-center justify-between bg-blue-600 min-h-[140px]">
+            <View className="relative w-full align-center">
+                <View className="absolute top-0 left-3.5 elevation-10 z-10">
                     <HeaderBackButton onPress={goBackHandler} />
                 </View>
-                <View
-                    style={{
-                        position: "absolute",
-                        top: 6,
-                        width: "100%",
-                    }}
-                >
-                    <Text
-                        style={{
-                            textAlign: "center",
-                            color: Colors.primary900,
-                            fontSize: 20,
-                            fontWeight: "bold",
-                        }}
-                    >
+                <View className="absolute top-1 w-full">
+                    <Text className="text-center text-white text-xl font-bold">
                         {title}
                     </Text>
                 </View>
@@ -52,15 +24,5 @@ const Header = ({ navigationTarget, title }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    headerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: Colors.secondary500,
-        minHeight: 140,
-    },
-});
 
 export default Header;

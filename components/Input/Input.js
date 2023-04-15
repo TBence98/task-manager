@@ -1,58 +1,28 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
-
-import Colors from "../../constants/Colors";
+import { Text, TextInput, View, KeyboardAvoidingView } from "react-native";
 
 function Input({ label, invalid, style, textInputConfig }) {
-    const inputStyles = [styles.input];
+    let inputStyles = "bg-white p-1.5 rounded text-sm";
 
     if (textInputConfig && textInputConfig.multiline) {
-        inputStyles.push(styles.inputMultiline);
+        inputStyles += " min-h-[150px] py-8 px-2.5 textAlignVertical-top";
     }
 
     if (invalid) {
-        inputStyles.push(styles.invalidInput);
+        inputStyles += " bg-red-300";
     }
 
     return (
-        <View style={[styles.inputContainer, style]}>
-            <Text style={[styles.label, invalid && styles.invalidLabel]}>
+        <View className={`mx-1 my-2 ${style}`}>
+            <Text
+                className={`text-sm font-bold text-blue-600 mb-1 ${
+                    invalid ? "text-red-600" : ""
+                }`}
+            >
                 {label}
             </Text>
-            <TextInput style={inputStyles} {...textInputConfig} />
+            <TextInput className={inputStyles} {...textInputConfig} />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    inputContainer: {
-        marginHorizontal: 4,
-        marginVertical: 8,
-    },
-    label: {
-        fontSize: 14,
-        fontWeight: "bold",
-        color: Colors.secondary400,
-        marginBottom: 4,
-    },
-    input: {
-        backgroundColor: Colors.primary900,
-        padding: 6,
-        borderRadius: 6,
-        fontSize: 14,
-    },
-    inputMultiline: {
-        minHeight: 150,
-        textAlignVertical: "top",
-        paddingVertical: 30,
-        paddingHorizontal: 10,
-        fontSize: 14,
-    },
-    invalidLabel: {
-        color: "red",
-    },
-    invalidInput: {
-        backgroundColor: "red",
-    },
-});
 
 export default Input;

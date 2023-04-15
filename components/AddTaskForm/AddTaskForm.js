@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import Colors from "../../constants/Colors";
+import { View, Text, Pressable } from "react-native";
 
 import Input from "../Input/Input";
 import PrimaryReactiveButton from "../UI/PrimaryReactiveButton/PrimaryReactiveButton";
@@ -81,7 +80,7 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
     }
 
     return (
-        <View style={{ marginTop: 50 }}>
+        <View className="mt-12">
             {activeCalendar ? (
                 <DateTimePicker
                     mode="date"
@@ -91,10 +90,10 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                 />
             ) : null}
 
-            <View style={styles.inputRow}>
+            <View className="flex-row justify-between">
                 <Pressable
                     onPress={() => setActiveCalendar("startDate")}
-                    style={styles.rowInput}
+                    className="flex-1"
                 >
                     <Input
                         label="Start"
@@ -107,7 +106,7 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                 </Pressable>
                 <Pressable
                     onPress={() => setActiveCalendar("endDate")}
-                    style={styles.rowInput}
+                    className="flex-1"
                 >
                     <Input
                         label="End"
@@ -127,20 +126,22 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                     value: inputs.title.value,
                 }}
             />
-            <View style={styles.categorBlock}>
-                <Text style={styles.label}>Category</Text>
-                <View style={styles.inputRow}>
+            <View className="my-2 mx-1">
+                <Text className="text-sm font-bold text-blue-800 mb-1">
+                    Category
+                </Text>
+                <View className="flex-row justify-between">
                     <PrimaryReactiveButton
                         isActive={category === "priority"}
                         onPress={categoryChangedHandler.bind(null, "priority")}
-                        style={styles.rowInput}
+                        style="flex-1"
                     >
                         Priority Task
                     </PrimaryReactiveButton>
                     <PrimaryReactiveButton
                         isActive={category === "daily"}
                         onPress={categoryChangedHandler.bind(null, "daily")}
-                        style={styles.rowInput}
+                        style="flex-1"
                     >
                         Daily Task
                     </PrimaryReactiveButton>
@@ -155,35 +156,11 @@ const AddTaskForm = ({ onSubmit, defaultValues }) => {
                     value: inputs.description.value,
                 }}
             />
-            {/* <Button title="Add Task" onPress={submitHandler} /> */}
-            <PrimaryButton style={styles.addTaskButton} onPress={submitHandler}>
+            <PrimaryButton style="mt-6" onPress={submitHandler}>
                 Create Task
             </PrimaryButton>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    inputRow: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
-    rowInput: {
-        flex: 1,
-    },
-    label: {
-        fontSize: 14,
-        fontWeight: "bold",
-        color: Colors.secondary400,
-        marginBottom: 4,
-    },
-    addTaskButton: {
-        marginTop: 40,
-    },
-    categorBlock: {
-        marginVertical: 8,
-        marginHorizontal: 4,
-    },
-});
 
 export default AddTaskForm;

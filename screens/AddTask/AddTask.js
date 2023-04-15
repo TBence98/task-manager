@@ -2,7 +2,6 @@ import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useContext } from "react";
 import { TaskContext } from "../../store/TaskContext";
-import Colors from "../../constants/Colors";
 import AddTaskForm from "../../components/AddTaskForm/AddTaskForm";
 
 const AddTask = ({ navigation }) => {
@@ -16,24 +15,9 @@ const AddTask = ({ navigation }) => {
     return (
         <>
             <StatusBar style="light" />
-            <View
-                style={{
-                    flex: 1,
-                    backgroundColor: Colors.secondary500,
-                }}
-            >
-                <View
-                    style={{ backgroundColor: Colors.secondary500, flex: 1 }}
-                ></View>
-                <View
-                    style={{
-                        backgroundColor: Colors.primary800,
-                        flex: 16,
-                        borderTopLeftRadius: 70,
-                        borderTopRightRadius: 70,
-                        paddingHorizontal: 10,
-                    }}
-                >
+            <View className="flex-1 bg-blue-600">
+                <View className="bg-blue-600 flex-1"></View>
+                <View className="bg-slate-100 flex-[16] rounded-t-[70px] px-2.5">
                     <AddTaskForm onSubmit={addTaskHandler} />
                 </View>
             </View>

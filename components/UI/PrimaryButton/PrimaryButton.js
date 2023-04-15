@@ -1,5 +1,4 @@
-import { Pressable, View, Text, StyleSheet } from "react-native";
-import Colors from "../../../constants/Colors";
+import { Pressable, View, Text } from "react-native";
 
 const PrimaryButton = ({
     children,
@@ -9,42 +8,21 @@ const PrimaryButton = ({
     icon,
 }) => {
     return (
-        <View style={[styles.outerContainer, style]}>
+        <View className={`mx-1 rounded-md overflow-hidden ${style}`}>
             <Pressable onPress={onPress}>
-                <View style={[styles.button, innerContainerStyle]}>
+                <View
+                    className={`rounded-md p-4 bg-blue-600 flex-row align-center justify-center ${innerContainerStyle}`}
+                >
                     {icon ? <Text>{icon}</Text> : null}
-                    <Text
-                        style={[
-                            styles.buttonText,
-                            { textAlignVertical: "center" },
-                        ]}
-                    >
-                        {children}
-                    </Text>
+                    <View className="align-center justify-center">
+                        <Text className="color-white text-white text-center">
+                            {children}
+                        </Text>
+                    </View>
                 </View>
             </Pressable>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    outerContainer: {
-        marginHorizontal: 4,
-        borderRadius: 10,
-        overflow: "hidden",
-    },
-    button: {
-        borderRadius: 4,
-        padding: 16,
-        backgroundColor: Colors.secondary500,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    buttonText: {
-        color: Colors.primary900,
-        textAlign: "center",
-    },
-});
 
 export default PrimaryButton;

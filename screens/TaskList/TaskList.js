@@ -1,7 +1,6 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../../constants/Colors";
 import getDaysOfMonth from "../../utils/getDaysOfMonth";
 import DateList from "../../components/DateList/DateList";
 import ListOfTask from "../../components/ListOfTasks/ListOfTask";
@@ -57,7 +56,7 @@ const TaskList = () => {
                     onChange={dateChangeHandler}
                 />
             ) : null}
-            <View style={styles.screen}>
+            <View className="flex-1 bg-slate-100 px-4">
                 <View className="mt-16 flex-row justify-between items-center">
                     <Pressable onPress={() => setShowCalendar(true)}>
                         <Text className="text-3xl font-bold">
@@ -66,10 +65,7 @@ const TaskList = () => {
                     </Pressable>
                     <PrimaryButton
                         onPress={addTaskHandler}
-                        innerContainerStyle={{
-                            paddingVertical: 6,
-                            paddingLeft: 10,
-                        }}
+                        innerContainerStyle="py-1.5 pl-2.5"
                         icon={
                             <Ionicons
                                 name="add-sharp"
@@ -81,32 +77,18 @@ const TaskList = () => {
                         Add Task
                     </PrimaryButton>
                 </View>
-                <View style={{ marginVertical: 40 }}>
+                <View className="my-10">
                     <DateList
                         days={daysOfMonth}
                         activeDate={selectedDate.getDate()}
                     />
                 </View>
-                <View style={{ height: 500 }}>
+                <View className="h-3/5">
                     <ListOfTask />
                 </View>
             </View>
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    screen: {
-        backgroundColor: Colors.primary800,
-        flex: 1,
-        paddingHorizontal: "6%",
-    },
-    header: {
-        marginTop: 60,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-});
 
 export default TaskList;

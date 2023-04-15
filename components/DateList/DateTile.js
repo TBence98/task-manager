@@ -1,53 +1,28 @@
-import { View, Text, StyleSheet } from "react-native";
-import Colors from "../../constants/Colors";
+import { View, Text } from "react-native";
 
 const DateTile = ({ dayName, date, isActive }) => {
     return (
         <View
-            style={[
-                styles.tileContainer,
-                isActive && styles.activeTileContainer,
-            ]}
+            className={`bg-slate-300 py-2 w-[50px] mx-1.5 rounded-md ${
+                isActive ? "bg-blue-600 py-3 w-[60px]" : ""
+            }`}
         >
-            <Text style={[styles.tileText, isActive && styles.activeTileText]}>
+            <Text
+                className={`text-blue-700 text-center ${
+                    isActive ? "text-white" : ""
+                }`}
+            >
                 {dayName}
             </Text>
             <Text
-                style={[
-                    styles.tileText,
-                    styles.dateText,
-                    isActive && styles.activeTileText,
-                ]}
+                className={`text-blue-700 text-center font-bold ${
+                    isActive ? "text-white" : ""
+                }`}
             >
                 {date}
             </Text>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    tileContainer: {
-        backgroundColor: "#dae3e6",
-        paddingVertical: 8,
-        minWidth: 50,
-        marginHorizontal: 6,
-        borderRadius: 10,
-    },
-    activeTileContainer: {
-        backgroundColor: Colors.secondary400,
-        paddingVertical: 12,
-        minWidth: 60,
-    },
-    tileText: {
-        color: Colors.secondary400,
-        textAlign: "center",
-    },
-    dateText: {
-        fontWeight: "bold",
-    },
-    activeTileText: {
-        color: Colors.primary900,
-    },
-});
 
 export default DateTile;

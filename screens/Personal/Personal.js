@@ -1,19 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 
 const Personal = () => {
     return (
-        <View style={styles.screen}>
+        <View className="flex-1 items-center justify-center">
             <Text>Personal Screen</Text>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});
 
 export default Personal;

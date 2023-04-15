@@ -1,53 +1,24 @@
-import { Pressable, View, Text, StyleSheet } from "react-native";
-import Colors from "../../../constants/Colors";
+import { Pressable, View, Text } from "react-native";
 
 const SecondaryReactiveButton = ({ isActive, children, onPress, style }) => {
     return (
-        <View style={[styles.outerContainer, style]}>
+        <View className={`mx-1 rounded-lg ${style}`}>
             <Pressable onPress={onPress}>
-                <View style={styles.button}>
+                <View className="rounded px-4 min-h-[30px]">
                     <Text
-                        style={[
-                            styles.buttonText,
-                            isActive && styles.buttonTextActive,
-                        ]}
+                        className={`font-bold text-base text-center ${
+                            isActive ? "text-blue-600" : ""
+                        }`}
                     >
                         {children}
                     </Text>
-                    {isActive ? <View style={styles.decorLine}></View> : null}
+                    {isActive ? (
+                        <View className="w-5 h-1 bg-blue-600 mt-1 ml-auto mr-auto"></View>
+                    ) : null}
                 </View>
             </Pressable>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    outerContainer: {
-        marginHorizontal: 4,
-        borderRadius: 10,
-        overflow: "hidden",
-    },
-    button: {
-        borderRadius: 4,
-        paddingHorizontal: 16,
-        minHeight: 30,
-    },
-    buttonText: {
-        fontWeight: "bold",
-        fontSize: 16,
-        textAlign: "center",
-    },
-    buttonTextActive: {
-        color: Colors.secondary500,
-    },
-    decorLine: {
-        width: 20,
-        height: 3,
-        backgroundColor: Colors.secondary500,
-        marginTop: 4,
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-});
 
 export default SecondaryReactiveButton;

@@ -1,11 +1,11 @@
-import { View, Pressable, Text, StyleSheet } from "react-native";
+import { View, Pressable } from "react-native";
 import Colors from "../../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 
 const HeaderBackButton = ({ onPress }) => {
     return (
         <Pressable onPress={onPress}>
-            <View style={styles.buttonInnerContainer}>
+            <View className="p-1.5 rounded-lg bg-white items-center justify-center">
                 <Ionicons
                     name="arrow-back"
                     size={24}
@@ -15,15 +15,5 @@ const HeaderBackButton = ({ onPress }) => {
         </Pressable>
     );
 };
-
-const styles = StyleSheet.create({
-    buttonInnerContainer: {
-        padding: 6,
-        borderRadius: 10,
-        backgroundColor: Colors.primary900,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});
 
 export default HeaderBackButton;
