@@ -1,4 +1,11 @@
-import { View, KeyboardAvoidingView, Dimensions, Platform } from "react-native";
+import {
+    View,
+    KeyboardAvoidingView,
+    Dimensions,
+    Platform,
+    Keyboard,
+    Pressable,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useContext } from "react";
 import { TaskContext } from "../../store/TaskContext";
@@ -22,15 +29,17 @@ const AddTask = ({ navigation }) => {
                 className="flex-1 bg-blue-600"
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-                <Header navigationTarget="TaskList" title="Add Task" />
-                <View className="flex-1 justify-end">
-                    <View
-                        style={{ height: formHeight }}
-                        className={`bg-slate-100 rounded-t-[70px] px-2.5`}
-                    >
-                        <AddTaskForm onSubmit={addTaskHandler} />
+                <Pressable className="flex-1" onPress={Keyboard.dismiss}>
+                    <Header navigationTarget="TaskList" title="Add Task" />
+                    <View className="flex-1 justify-end">
+                        <View
+                            style={{ height: formHeight }}
+                            className={`bg-slate-100 rounded-t-[70px] px-2.5`}
+                        >
+                            <AddTaskForm onSubmit={addTaskHandler} />
+                        </View>
                     </View>
-                </View>
+                </Pressable>
             </KeyboardAvoidingView>
         </>
     );
